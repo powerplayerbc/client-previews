@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're In | Prefrontal Plays</title>
+    <meta name="description" content="Your Clarity Session is confirmed. Here's what happens next.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas Neue:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        foundation: '#0A0A0A',
+                        surface: '#0F1629',
+                        'surface-elevated': '#162040',
+                        accent: 'var(--brand-primary)',
+                        'accent-glow': 'var(--brand-primary-glow)',
+                        warm: 'var(--brand-warm)',
+                        'warm-glow': 'var(--brand-warm-glow)',
+                        'text-primary': '#F8FAFC',
+                        'text-secondary': '#94A3B8',
+                    },
+                    fontFamily: {
+                        heading: ['Bebas Neue', 'Impact', 'sans-serif'],
+                        body: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --brand-primary: #1E3A8A;
+            --brand-primary-glow: #2563EB;
+            --brand-warm: #F59E0B;
+            --brand-warm-glow: #FBBF24;
+        }
+
+        html.lenis, html.lenis body {
+            height: auto;
+        }
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: #0A0A0A;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+
+        /* -- Court-line SVG pattern overlay -- */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='0.5'%3E%3Crect x='10' y='10' width='180' height='180'/%3E%3Cline x1='100' y1='10' x2='100' y2='190'/%3E%3Ccircle cx='100' cy='100' r='30'/%3E%3Cline x1='10' y1='100' x2='190' y2='100'/%3E%3Crect x='60' y='10' width='80' height='40'/%3E%3Crect x='60' y='150' width='80' height='40'/%3E%3C/g%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 200px 200px;
+        }
+
+        /* Refined typography scale */
+        .heading-hero { font-size: clamp(3rem, 5vw + 1rem, 5rem); }
+        .heading-section { font-size: clamp(2rem, 3vw + 0.5rem, 3rem); }
+
+        /* -- Nav glass -- */
+        .nav-glass {
+            background: rgba(10, 10, 10, 0.92);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* -- Hero section with diagonal bottom -- */
+        .section-hero {
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 30%, rgba(var(--rgb-primary), 0.10) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 70% 70%, rgba(var(--rgb-warm), 0.06) 0%, transparent 60%),
+                #0A0A0A;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+        @media (max-width: 767px) {
+            .section-hero { clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%); }
+        }
+
+        /* -- Section label monospace -- */
+        .section-label {
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: var(--brand-primary-glow);
+        }
+
+        /* -- Sporty headline -- */
+        .headline-massive {
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 0.95;
+            letter-spacing: -0.01em;
+        }
+
+        /* -- Check circle animation -- */
+        .check-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        .check-circle {
+            fill: none;
+            stroke: var(--brand-primary-glow);
+            stroke-width: 3;
+            stroke-dasharray: 283;
+            stroke-dashoffset: 283;
+            stroke-linecap: round;
+            transform-origin: center;
+        }
+        .check-mark {
+            fill: none;
+            stroke: var(--brand-warm);
+            stroke-width: 3.5;
+            stroke-dasharray: 50;
+            stroke-dashoffset: 50;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .check-glow {
+            position: absolute;
+            inset: -10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(var(--rgb-primary), 0.2) 0%, transparent 70%);
+            opacity: 0;
+        }
+
+        /* -- Order summary card -- */
+        .order-card {
+            background: #0F1629;
+            border: 1px solid rgba(var(--rgb-primary), 0.2);
+            border-radius: 1rem;
+            padding: 2rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .order-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--brand-primary), var(--brand-warm), var(--brand-primary));
+        }
+        .order-price {
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            line-height: 1;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--brand-primary-glow), var(--brand-warm));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* -- Steps section -- */
+        .section-steps {
+            background:
+                radial-gradient(ellipse 60% 40% at 40% 30%, rgba(var(--rgb-primary), 0.05) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 70%, rgba(var(--rgb-warm), 0.03) 0%, transparent 60%),
+                #0A0A0A;
+            position: relative;
+        }
+
+        /* -- Next-step cards with vertical connector -- */
+        .steps-container {
+            position: relative;
+            padding-left: 3.5rem;
+        }
+        .steps-container::before {
+            content: '';
+            position: absolute;
+            left: 1.25rem;
+            top: 2.5rem;
+            bottom: 2.5rem;
+            width: 2px;
+            background: linear-gradient(180deg, var(--brand-primary-glow), var(--brand-warm), rgba(var(--rgb-warm), 0.2));
+        }
+        .step-item {
+            position: relative;
+            padding: 1.5rem 0;
+        }
+        .step-number {
+            position: absolute;
+            left: -3.5rem;
+            top: 1.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: white;
+            z-index: 1;
+        }
+        .step-number-1 { background: var(--brand-primary); }
+        .step-number-2 { background: var(--brand-primary-glow); }
+        .step-number-3 { background: var(--brand-warm); }
+
+        .step-content {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 0.75rem;
+            padding: 1.5rem 1.75rem;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        .step-content:hover {
+            border-color: rgba(var(--rgb-primary), 0.15);
+            transform: translateX(4px);
+        }
+
+        /* -- Diagonal divider (up) -- */
+        .diagonal-divider-up {
+            position: relative;
+            height: 80px;
+            background: transparent;
+            overflow: hidden;
+        }
+        .diagonal-divider-up::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -5%;
+            width: 110%;
+            height: 100%;
+            background: #0A0A0A;
+            transform: skewY(2deg);
+            transform-origin: bottom right;
+        }
+
+        /* -- CTA section -- */
+        .section-cta {
+            background:
+                radial-gradient(ellipse 70% 50% at 50% 60%, rgba(var(--rgb-primary), 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 30% 30%, rgba(var(--rgb-warm), 0.05) 0%, transparent 60%),
+                #0A0A0A;
+            position: relative;
+        }
+
+        /* -- CTA button sporty -- */
+        .btn-sporty {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1.125rem 2.5rem;
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-glow));
+            color: white;
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            border-radius: 0.625rem;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+        }
+        .btn-sporty:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 4px 24px rgba(var(--rgb-primary), 0.4), 0 8px 48px rgba(var(--rgb-primary), 0.15);
+        }
+        .btn-sporty:active { transform: translateY(0) scale(1); }
+        .btn-sporty:focus-visible { outline: 2px solid var(--brand-primary-glow); outline-offset: 2px; }
+        .btn-sporty::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        .btn-sporty:hover::after { transform: translateX(100%); }
+
+        /* -- GSAP initial states -- */
+        .gs-hidden { opacity: 0; visibility: hidden; }
+
+        /* -- Footer -- */
+        .footer-border {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* -- Mobile step adjustments -- */
+        @media (max-width: 767px) {
+            .steps-container { padding-left: 3rem; }
+            .step-number { left: -3rem; width: 2rem; height: 2rem; font-size: 0.875rem; }
+            .steps-container::before { left: 1rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- === NAV === -->
+    <nav class="fixed top-0 left-0 right-0 z-50 nav-glass">
+        <div class="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <a href="https://prefrontalplays.com" class="flex items-center gap-2">
+                    <img src="" alt="Prefrontal Plays" class="h-8 md:h-9 w-auto" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+                    <span style="display:none" class="font-heading font-bold text-lg md:text-xl tracking-tight text-text-primary uppercase">Prefrontal Plays</span>
+                </a>
+                <a href="https://prefrontalplays.com" class="text-sm text-text-secondary hover:text-text-primary transition-colors duration-200 flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- === HERO (Confirmation) === -->
+    <section class="section-hero pt-28 md:pt-36 pb-32 md:pb-44 px-5">
+        <div class="max-w-3xl mx-auto text-center">
+
+            <!-- Animated check icon -->
+            <div class="check-container gs-hidden" id="check-anim">
+                <div class="check-glow" id="check-glow"></div>
+                <svg viewBox="0 0 100 100" width="100" height="100">
+                    <circle class="check-circle" id="check-circle" cx="50" cy="50" r="45"/>
+                    <polyline class="check-mark" id="check-mark" points="30,52 44,66 70,38"/>
+                </svg>
+            </div>
+
+            <h1 class="gs-hidden headline-massive heading-hero mb-6" id="receipt-heading">
+                You just made a real move.
+            </h1>
+            <p class="gs-hidden text-base md:text-lg text-text-secondary leading-relaxed max-w-xl mx-auto" id="receipt-message">
+                Your Clarity Session is confirmed. No hype, no fluffâ€”just the tools, frameworks, and truth you need to understand what's actually happening in your game. Check your email for scheduling details.
+            </p>
+        </div>
+    </section>
+
+    <!-- === ORDER SUMMARY === -->
+    <section class="py-4 px-5 -mt-16 md:-mt-20 relative z-10" data-anim="scale-up">
+        <div class="max-w-lg mx-auto">
+            <div class="order-card gs-hidden" id="order-card">
+                <div class="flex items-center justify-between gap-4 flex-wrap">
+                    <div>
+                        <p class="text-xs text-text-secondary uppercase tracking-wider mb-1 font-semibold">Your Purchase</p>
+                        <h3 class="font-heading text-lg md:text-xl uppercase tracking-wide text-text-primary">60-Minute Clarity Session</h3>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-text-secondary uppercase tracking-wider mb-1 font-semibold">Amount</p>
+                        <div class="order-price">$447</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- === NEXT STEPS === -->
+    <section class="section-steps py-16 md:py-24 px-5">
+        <div class="max-w-2xl mx-auto">
+            <div class="text-center mb-12 gs-hidden" id="steps-heading">
+                <p class="section-label">Here's What Happens Next</p>
+                <h2 class="headline-massive text-2xl md:text-4xl">Get Ready</h2>
+            </div>
+
+            <div class="steps-container">
+                <!-- Step 1 -->
+                <div class="step-item gs-hidden" data-anim="stagger-step" data-step-index="0">
+                    <div class="step-number step-number-1">1</div>
+                    <div class="step-content">
+                        <h3 class="font-heading text-lg uppercase tracking-wide text-text-primary mb-1.5">Check Your Email</h3>
+                        <p class="text-text-secondary text-sm leading-relaxed">You'll receive a confirmation email with a link to schedule your session within 48 hours.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-item gs-hidden" data-anim="stagger-step" data-step-index="1">
+                    <div class="step-number step-number-2">2</div>
+                    <div class="step-content">
+                        <h3 class="font-heading text-lg uppercase tracking-wide text-text-primary mb-1.5">Prepare Your Film</h3>
+                        <p class="text-text-secondary text-sm leading-relaxed">Gather 2-3 recent game clips. Full games are bestâ€”we need to see real decisions, not highlights.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-item gs-hidden" data-anim="stagger-step" data-step-index="2">
+                    <div class="step-number step-number-3">3</div>
+                    <div class="step-content">
+                        <h3 class="font-heading text-lg uppercase tracking-wide text-text-primary mb-1.5">Show Up Ready</h3>
+                        <p class="text-text-secondary text-sm leading-relaxed">Come with an open mind. We're going to look at your game honestlyâ€”and build a plan from what we see.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- === CTA === -->
+    <section class="section-cta py-16 md:py-24 px-5">
+        <div class="max-w-2xl mx-auto text-center gs-hidden" data-anim="clip-reveal">
+            <a href="https://prefrontalplays.com" class="btn-sporty">
+                <span>Back to Home</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- === FOOTER === -->
+    <footer class="footer-border py-10 px-5">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-text-secondary">
+            <span>&copy; 2026 Prefrontal Plays. All rights reserved.</span>
+            <a href="mailto:Info@prefrontalplays.com" class="hover:text-text-primary transition-colors duration-200">Info@prefrontalplays.com</a>
+        </div>
+    </footer>
+
+    <!-- === SCRIPTS === -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+    <script>
+    (function() {
+        /* ========================
+           RGB EXTRACTION
+           ======================== */
+        function hexToRgb(hex) {
+            hex = hex.replace('#', '');
+            if (hex.length === 3) hex = hex.split('').map(function(c){ return c+c; }).join('');
+            var r = parseInt(hex.substring(0,2), 16);
+            var g = parseInt(hex.substring(2,4), 16);
+            var b = parseInt(hex.substring(4,6), 16);
+            return r + ', ' + g + ', ' + b;
+        }
+        var root = document.documentElement;
+        var styles = getComputedStyle(root);
+        var primary = styles.getPropertyValue('--brand-primary').trim();
+        var warm = styles.getPropertyValue('--brand-warm').trim();
+        if (primary) root.style.setProperty('--rgb-primary', hexToRgb(primary));
+        if (warm) root.style.setProperty('--rgb-warm', hexToRgb(warm));
+
+        /* ========================
+           LENIS SMOOTH SCROLL
+           ======================== */
+        var lenis = new Lenis({
+            duration: 1.2,
+            easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+            orientation: 'vertical',
+            smoothWheel: true,
+        });
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        /* ========================
+           GSAP + SCROLLTRIGGER
+           ======================== */
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Update ScrollTrigger on Lenis scroll
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add(function(time) { lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0);
+
+        /* ========================
+           HERO â€” CHECK ANIMATION
+           ======================== */
+        var checkContainer = document.getElementById('check-anim');
+        var checkCircle = document.getElementById('check-circle');
+        var checkMark = document.getElementById('check-mark');
+        var checkGlow = document.getElementById('check-glow');
+        var receiptHeading = document.getElementById('receipt-heading');
+        var receiptMessage = document.getElementById('receipt-message');
+
+        // Master timeline for hero entrance
+        var heroTL = gsap.timeline({ delay: 0.3 });
+
+        // 1. Check container fades in
+        heroTL.to(checkContainer, {
+            opacity: 1, visibility: 'visible',
+            duration: 0.4, ease: 'power2.out'
+        });
+
+        // 2. Circle draws
+        heroTL.to(checkCircle, {
+            strokeDashoffset: 0,
+            duration: 0.8,
+            ease: 'power2.inOut'
+        });
+
+        // 3. Checkmark draws
+        heroTL.to(checkMark, {
+            strokeDashoffset: 0,
+            duration: 0.5,
+            ease: 'power2.out'
+        }, '-=0.1');
+
+        // 4. Glow pulse
+        heroTL.to(checkGlow, {
+            opacity: 1,
+            duration: 0.4,
+            ease: 'power2.out'
+        }, '-=0.3');
+        heroTL.to(checkGlow, {
+            opacity: 0.4,
+            duration: 0.6,
+            ease: 'power2.inOut'
+        });
+
+        // 5. Heading staggers in
+        heroTL.fromTo(receiptHeading,
+            { opacity: 0, y: 30, visibility: 'hidden' },
+            { opacity: 1, y: 0, visibility: 'visible', duration: 0.7, ease: 'power3.out' },
+            '-=0.4'
+        );
+
+        // 6. Message staggers in
+        heroTL.fromTo(receiptMessage,
+            { opacity: 0, y: 20, visibility: 'hidden' },
+            { opacity: 1, y: 0, visibility: 'visible', duration: 0.6, ease: 'power3.out' },
+            '-=0.3'
+        );
+
+        /* ========================
+           ORDER CARD â€” SCALE-UP
+           ======================== */
+        var orderCard = document.getElementById('order-card');
+        gsap.fromTo(orderCard,
+            { opacity: 0, scale: 0.9, visibility: 'hidden' },
+            {
+                opacity: 1, scale: 1, visibility: 'visible',
+                duration: 0.8,
+                ease: 'back.out(1.4)',
+                scrollTrigger: {
+                    trigger: orderCard,
+                    start: 'top 90%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+
+        /* ========================
+           STEPS HEADING â€” STAGGER-UP
+           ======================== */
+        var stepsHeading = document.getElementById('steps-heading');
+        gsap.fromTo(stepsHeading,
+            { opacity: 0, y: 30, visibility: 'hidden' },
+            {
+                opacity: 1, y: 0, visibility: 'visible',
+                duration: 0.7,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: stepsHeading,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+
+        /* ========================
+           STEPS â€” STAGGER WITH CONNECTOR
+           ======================== */
+        var stepItems = document.querySelectorAll('[data-anim="stagger-step"]');
+        var sortedSteps = Array.prototype.slice.call(stepItems).sort(function(a, b) {
+            return (parseInt(a.getAttribute('data-step-index')) || 0) - (parseInt(b.getAttribute('data-step-index')) || 0);
+        });
+        sortedSteps.forEach(function(el, i) {
+            gsap.fromTo(el,
+                { opacity: 0, x: -40, visibility: 'hidden' },
+                {
+                    opacity: 1, x: 0, visibility: 'visible',
+                    duration: 0.7,
+                    delay: i * 0.2,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 88%',
+                        toggleActions: 'play none none none'
+                    }
+                }
+            );
+        });
+
+        /* ========================
+           CTA â€” CLIP-REVEAL
+           ======================== */
+        var clipReveal = document.querySelector('[data-anim="clip-reveal"]');
+        if (clipReveal) {
+            gsap.fromTo(clipReveal,
+                { opacity: 0, clipPath: 'inset(100% 0% 0% 0%)', visibility: 'hidden' },
+                {
+                    opacity: 1, clipPath: 'inset(0% 0% 0% 0%)', visibility: 'visible',
+                    duration: 0.9,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: clipReveal,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    }
+                }
+            );
+        }
+    })();
+    </script>
+
+</body>
+</html>

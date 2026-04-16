@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get On The Floor | Prefrontal Plays</title>
+    <meta name="description" content="You're good enough to play. So why aren't you on the floor? Stop guessing what coaches want. Start becoming the player they trust.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --primary-glow: #2563EB;
+            --warm: #F59E0B;
+            --warm-glow: #FBBF24;
+            --bg-dark: #0A0A0A;
+            --surface: #0F1629;
+            --heading-font: 'Bebas Neue', 'Impact', sans-serif;
+            --body-font: 'Inter', system-ui, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            background: var(--bg-dark);
+            color: #E2E8F0;
+            font-family: var(--body-font);
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: auto;
+        }
+
+        body {
+            overflow-x: hidden;
+            background: var(--bg-dark);
+        }
+
+        /* Lenis overrides */
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+
+        /* Court-line SVG overlay */
+        .court-lines {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect x='40' y='40' width='320' height='320' fill='none' stroke='%23ffffff' stroke-width='1.5'/%3E%3Cline x1='200' y1='40' x2='200' y2='360' stroke='%23ffffff' stroke-width='1'/%3E%3Ccircle cx='200' cy='200' r='60' fill='none' stroke='%23ffffff' stroke-width='1'/%3E%3Crect x='40' y='130' width='80' height='140' fill='none' stroke='%23ffffff' stroke-width='0.8'/%3E%3Crect x='280' y='130' width='80' height='140' fill='none' stroke='%23ffffff' stroke-width='0.8'/%3E%3Carc cx='40' cy='200' r='50' fill='none' stroke='%23ffffff' stroke-width='0.8'/%3E%3C/svg%3E");
+            background-size: 400px 400px;
+        }
+
+        /* Typography */
+        .font-heading {
+            font-family: var(--heading-font);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            line-height: 0.95;
+        }
+
+        .font-body { font-family: var(--body-font); }
+
+        /* Diagonal clip */
+        .clip-diagonal { clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
+        .clip-diagonal-reverse { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%); }
+        .clip-diagonal-both { clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%); }
+
+        /* Glassmorphism nav */
+        .nav-glass {
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .nav-solid {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Glow effects */
+        .glow-primary {
+            box-shadow: 0 0 30px rgba(37, 99, 235, 0.3), 0 0 60px rgba(37, 99, 235, 0.1);
+        }
+
+        .glow-warm {
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.3), 0 0 60px rgba(245, 158, 11, 0.1);
+        }
+
+        .text-glow-primary {
+            text-shadow: 0 0 40px rgba(37, 99, 235, 0.4);
+        }
+
+        .text-glow-warm {
+            text-shadow: 0 0 40px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Section label */
+        .section-label {
+            font-family: var(--body-font);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--warm);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 2rem;
+            height: 2px;
+            background: var(--warm);
+        }
+
+        /* Button styles */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.1rem 2.8rem;
+            background: var(--primary);
+            color: #fff;
+            font-family: var(--heading-font);
+            font-size: 1.25rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-glow);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .btn-primary:hover::after { transform: translateX(100%); }
+
+        .btn-warm {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem 3.2rem;
+            background: var(--warm);
+            color: #0A0A0A;
+            font-family: var(--heading-font);
+            font-size: 1.5rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-warm:hover {
+            background: var(--warm-glow);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Benefit card */
+        .benefit-card {
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.4s ease;
+        }
+
+        .benefit-card:hover {
+            border-color: rgba(37, 99, 235, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .benefit-card:hover::before { width: 6px; }
+
+        /* Testimonial card */
+        .testimonial-card {
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '\201C';
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            font-size: 4rem;
+            font-family: var(--heading-font);
+            color: var(--primary-glow);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        /* FAQ accordion */
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .faq-question {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            background: none;
+            border: none;
+            color: #E2E8F0;
+            font-family: var(--heading-font);
+            font-size: 1.3rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            text-align: left;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .faq-question:hover { color: var(--warm); }
+
+        .faq-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            position: relative;
+            flex-shrink: 0;
+            margin-left: 1rem;
+        }
+
+        .faq-icon::before,
+        .faq-icon::after {
+            content: '';
+            position: absolute;
+            background: var(--warm);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-icon::before {
+            width: 100%;
+            height: 2px;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        .faq-icon::after {
+            width: 2px;
+            height: 100%;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+        }
+
+        .faq-item.active .faq-icon::after {
+            transform: translateX(-50%) rotate(90deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-answer-inner {
+            padding-bottom: 1.5rem;
+            color: #94A3B8;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Video wrapper */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Marquee */
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            will-change: transform;
+        }
+
+        .marquee-text {
+            font-family: var(--heading-font);
+            font-size: clamp(3rem, 6vw, 5rem);
+            text-transform: uppercase;
+            white-space: nowrap;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
+            padding: 0 2vw;
+            line-height: 1.1;
+            user-select: none;
+        }
+
+        .marquee-text .accent {
+            -webkit-text-stroke-color: var(--primary-glow);
+            opacity: 0.3;
+        }
+
+        /* Stat counter */
+        .stat-value {
+            font-family: var(--heading-font);
+            font-size: 4rem;
+            color: var(--warm);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-family: var(--body-font);
+            font-size: 0.85rem;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-top: 0.5rem;
+        }
+
+        /* Guarantee badge */
+        .guarantee-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            background: rgba(245, 158, 11, 0.05);
+            color: var(--warm);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Pricing section */
+        .price-display {
+            font-family: var(--heading-font);
+            font-size: 5rem;
+            color: #fff;
+            line-height: 1;
+        }
+
+        /* Refined typography scale */
+        .heading-hero { font-size: clamp(3rem, 5vw + 1rem, 5rem); }
+        .heading-section { font-size: clamp(2rem, 3vw + 0.5rem, 3rem); }
+        .heading-subsection { font-size: clamp(1.5rem, 2vw + 0.5rem, 2.25rem); }
+        .heading-cta { font-size: clamp(2.5rem, 4vw + 0.5rem, 4rem); }
+        .subheading-hero { font-size: clamp(1.25rem, 1.5vw + 0.5rem, 1.75rem); }
+
+        /* GSAP initial states */
+        .gs-hidden { opacity: 0; }
+        .gs-fade-up { opacity: 0; transform: translateY(60px); }
+        .gs-slide-left { opacity: 0; transform: translateX(-80px); }
+        .gs-slide-right { opacity: 0; transform: translateX(80px); }
+        .gs-scale-up { opacity: 0; transform: scale(0.85); }
+        .gs-clip-reveal { clip-path: inset(0 0 100% 0); }
+        .gs-rotate-in { opacity: 0; transform: rotate(-5deg) translateY(40px); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stat-value { font-size: 2.5rem; }
+            .price-display { font-size: 3rem; }
+            .btn-warm { padding: 1rem 2rem; font-size: 1.2rem; }
+            .btn-primary { padding: 0.9rem 2rem; font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Court-line texture overlay -->
+    <div class="court-lines" aria-hidden="true"></div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 1: FIXED NAV                          -->
+    <!-- ============================================= -->
+    <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="https://prefrontalplays.com" class="flex items-center gap-3 text-white no-underline">
+                <img src="" alt="Prefrontal Plays logo" class="h-8 w-auto" onerror="this.style.display='none'">
+                <span class="font-heading text-xl tracking-wider">Prefrontal Plays</span>
+            </a>
+            <a href="https://prefrontalplays.com" class="text-sm text-gray-400 hover:text-white transition-colors uppercase tracking-widest font-medium">
+                &larr; Back
+            </a>
+        </div>
+    </nav>
+
+    <!-- ============================================= -->
+    <!-- SECTION 2: HERO                               -->
+    <!-- ============================================= -->
+    <section class="relative min-h-screen flex items-center clip-diagonal overflow-hidden" style="padding-top: 80px;">
+        <!-- Background image -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://bradfordcarlton.com/client-assets/prefrontal-plays/hero-sales-high.jpg');"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-[#0A0A0A]"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 py-24 md:py-32">
+            <div class="max-w-4xl">
+                <div class="section-label gs-fade-up mb-6" data-stagger="1">Prefrontal Plays</div>
+
+                <h1 class="font-heading heading-hero text-white leading-none mb-6 gs-fade-up" data-stagger="2">
+                    You're good enough to play. So why aren't you on the floor?
+                </h1>
+
+                <p class="font-heading subheading-hero text-gray-300 leading-tight mb-6 gs-fade-up" data-stagger="3" style="color: var(--primary-glow);">
+                    Most players don't lose minutes because of skill. They lose them because they don't understand what coaches actually trust.
+                </p>
+
+                <p class="text-lg text-gray-400 max-w-2xl leading-relaxed mb-10 gs-fade-up" data-stagger="4">
+                    This is where that changes. A structured system built from college coaching, recruiting evaluation, and applied psychologyâ€”designed to get you on the floor and keep you there.
+                </p>
+
+                <div class="gs-fade-up" data-stagger="5">
+                    <a href="#pricing" class="btn-warm">
+                        Start Your Clarity Session
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diagonal bottom edge accent line -->
+        <div class="absolute bottom-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, var(--primary-glow), transparent); transform: rotate(-2deg) translateY(-20px);"></div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- SECTION 3: VIDEO                              -->
+    <!-- ============================================= -->
+    <section class="relative py-20 md:py-28" style="background: var(--bg-dark);">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-10">
+                <div class="section-label justify-center gs-fade-up">Watch</div>
+            </div>
+
+            <div class="gs-scale-up">
+                <div class="video-wrapper" style="box-shadow: 0 0 60px rgba(37, 99, 235, 0.15);">
+                    <iframe
+                        src=""
+                        title="Video presentation"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        loading="lazy"
+                    ></iframe>
+                </div>
+            </div>
+
+            <p class="text-center text-gray-500 text-sm mt-6 gs-fade-up italic">
+                What Coaches See That Players Don't â€” Most players think they're evaluated on effort or talent. That's not what decides playing time.
+            </p>
+        </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- SECTION 4: PROBLEM / SOLUTION                 -->
+    <!-- ============================================= -->
+    <section class="relative py-20 md:py-28 clip-diagonal-both" style="background: var(--surface);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+
+                <!-- Problem -->
+                <div class="gs-slide-left">
+                    <div class="section-label mb-6" style="color: #EF4444;">
+                        <span style="color: #EF4444;">The Problem</span>
+                    </div>
+                    <div class="section-label mb-6" style="--warm: #EF4444;">
+                        <style>.section-label-red::before { background: #EF4444 !important; }</style>
+                    </div>
+                    <h2 class="font-heading heading-subsection text-white mb-6">
+                        The Truth Nobody Tells You
+                    </h2>
+                    <p class="text-gray-400 text-lg leading-relaxed">
+                        Every year, thousands of skilled players sit on the bench while less talented players stay on the floor. They work harder, run extra drills, show up earlyâ€”and still can't earn consistent minutes. And most of them have no idea why. It's not effort. It's not talent. It's that nobody taught them what coaches actually evaluateâ€”and how trust is really built.
+                    </p>
+                    <div class="mt-6 h-1 w-24" style="background: #EF4444;"></div>
+                </div>
+
+                <!-- Solution -->
+                <div class="gs-slide-right">
+                    <div class="section-label mb-6">The Solution</div>
+                    <h2 class="font-heading heading-subsection text-white mb-6">
+                        The System That Gets You On The Floorâ€”and Keeps You There
+                    </h2>
+                    <p class="text-gray-400 text-lg leading-relaxed">
+                        This is a structured coaching system built from college coaching, recruiting evaluation, and applied psychology. We don't guess. We identify exactly what's costing you minutesâ€”and fix it. Through game film breakdown, journal-to-film analysis, role clarity mapping, and decision-making training, you'll learn to see the game the way coaches see it.
+                    </p>
+                    <div class="mt-6 h-1 w-24" style="background: var(--primary-glow);"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- SECTION 5: BENEFITS (2x2 grid)                -->
+    <!-- ============================================= -->
+    <section class="relative py-20 md:py-28" style="background: var(--bg-dark);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="section-label justify-center gs-fade-up mb-4">What You Get</div>
+                <h2 class="font-heading heading-section text-white gs-fade-up">What Actually Changes When You Go Through This Program</h2>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-6 md:gap-8" id="benefits-grid">
+                <!-- Benefit 1 -->
+                <div class="benefit-card gs-fade-up" data-stagger-group="benefits">
+                    <div class="w-12 h-12 flex items-center justify-center mb-5" style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary-glow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    </div>
+                    <h3 class="font-heading text-2xl text-white mb-3">You Stop Guessing What Coaches Want</h3>
+                    <p class="text-gray-400 leading-relaxed">No more wondering why you're not getting minutes. You'll understand exactly what earns trustâ€”and what loses it.</p>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="benefit-card gs-fade-up" data-stagger-group="benefits">
+                    <div class="w-12 h-12 flex items-center justify-center mb-5" style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary-glow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <h3 class="font-heading text-2xl text-white mb-3">You Make Faster, Better Decisions In Real Games</h3>
+                    <p class="text-gray-400 leading-relaxed">Learn to read spacing, timing, and advantage in real time. Stop hesitating. Start executing.</p>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="benefit-card gs-fade-up" data-stagger-group="benefits">
+                    <div class="w-12 h-12 flex items-center justify-center mb-5" style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary-glow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <h3 class="font-heading text-2xl text-white mb-3">Your Habits Start Showing Up In Gamesâ€”Not Just Practice</h3>
+                    <p class="text-gray-400 leading-relaxed">Build consistency through behavioral training that translates from film room to game floor.</p>
+                </div>
+
+                <!-- Benefit 4 -->
+                <div class="benefit-card gs-fade-up" data-stagger-group="benefits">
+                    <div class="w-12 h-12 flex items-center justify-center mb-5" style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary-glow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3 class="font-heading text-2xl text-white mb-3">You Finally Hear What's Actually Costing You Minutes</h3>
+                    <p class="text-gray-400 leading-relaxed">Unfiltered, experienced feedback from someone who evaluates players for a living. No hype. Just truth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- SECTION 6: STATS                              -->
+    <!-- ============================================= -->
+    <section class="relative py-20 md:py-28 clip-diagonal" style="background: var(--surface);">
+        <!-- Dark overlay with texture -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[var(--primary)]/10 to-transparent"></div>
+
+        <div class="relative max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-12 text-center">
+                <!-- Stat 1 -->
+                <div>
+                    <div class="stat-value" data-counter="9">0</div>
+                    <div class="stat-label">Step System</div>
+                </div>
+                <!-- Stat 2 -->
+                <div>
+                    <div class="stat-value" data-counter="1:1">0</div>
+                    <div class="stat-label">Personal Coaching</div>
+                </div>
+                <!-- Stat 3 -->
+                <div>
+                    <div class="stat-value" data-counter="60">0</div>
+                    <div class="stat-label">Minute Deep-Dive Session</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- SECTION 7: HORIZONTAL MARQUEE                 -->
+    <!-- ============================================= -->
+    <section class="relative py-8 md:py-12 overflow-hidden" style="background: var(--bg-dark);" aria-hidden="true">
+        <div class="marquee-track" id="marquee-sales">
+            <span class="marquee-text">Prefrontal Plays</span>
+            <span class="marquee-text accent">&bull;</span>
+            <span class="marquee-text">Prefrontal Plays</span>
+            <span class="marquee-text accent">&bull;</span>
+            <span class="marquee-text">Prefrontal Plays</span>
+            <span class="marquee-text accent">&bull;</span>
+            <span class="marquee-text">Prefrontal Plays</span>
+            <span class="marquee-text accent">&bull;</span>
+            <span class="marquee-text">Prefrontal Plays</span>
+            <span class="marquee-text accent">&bull;</span>
+        </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- SECTION 8: TESTIMONIALS                       -->
+    <!-- ============================================= -->
+    <section class="relative py-20 md:py-28" style="background: var(--bg-dark);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="section-label justify-center gs-fade-up mb-4">Results</div>
+                <h2 class="font-heading heading-section text-white gs-fade-up">What Players Are Saying</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card gs-slide-left">
+                    <blockquote class="relative z-10">
+                        <p class="text-gray-300 text-lg leading-relaxed mb-6 italic">
+                            "I thought I was playing hard enough. Chris showed me on film exactly where I was losing my coach's trustâ€”plays I didn't even remember."
+                        </p>
+                        <footer class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center font-heading text-lg" style="background: var(--primary); color: #fff;">
+                                Player Testimonial (Placeholder)
+                            </div>
+                            <div>
+                                <cite class="not-italic font-heading text-lg text-white tracking-wide">Player Testimonial (Placeholder)</cite>
+                                <p class="text-gray-500 text-sm">College Guard</p>
+                            </div>
+                        </footer>
+                    </blockquote>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card gs-slide-right">
+                    <blockquote class="relative z-10">
+                        <p class="text-gray-300 text-lg leading-relaxed mb-6 italic">
+                            "The journal-to-film breakdown was a game changer. I stopped lying to myself about what happened and started seeing the truth."
+                        </p>
+                        <footer class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center font-heading text-lg" style="background: var(--primary); color: #fff;">
+                                Player Testimonial (Placeholder)
+                            </div>
+                            <div>
+                                <cite class="not-italic font-heading text-lg text-white tracking-wide">Player Testimonial (Placeholder)</cite>
+                                <p class="text-gray-500 text-sm">HS Senior, EYBL</p>
+                            </div>
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- SECTION 9: FAQ                                -->
+    <!-- ============================================= -->
+    <section class="relative py-20 md:py-28 clip-diagonal-reverse" style="background: var(--surface);">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="section-label justify-center gs-fade-up mb-4">FAQ</div>
+                <h2 class="font-heading heading-section text-white gs-fade-up">Common Questions</h2>
+            </div>
+
+            <div class="gs-clip-reveal" id="faq-container">
+                <!-- FAQ 1 -->
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Who is this for?</span>
+                        <span class="faq-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="faq-answer" role="region">
+                        <div class="faq-answer-inner">Serious basketball players at any level who want to earn consistent minutes. If you're willing to look honestly at your game and do the work, this is for you.</div>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>What if I'm not sure I need coaching?</span>
+                        <span class="faq-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="faq-answer" role="region">
+                        <div class="faq-answer-inner">That's exactly why we start with a single session. You'll walk away with a clear picture of what's actually happening in your gameâ€”and whether deeper work makes sense.</div>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>How is this different from skills training?</span>
+                        <span class="faq-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="faq-answer" role="region">
+                        <div class="faq-answer-inner">Skills trainers teach you moves. We teach you when and why to use them. This is about decision-making, trust, and the habits that earn playing timeâ€”not another dribble drill.</div>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>What happens in the 60-minute session?</span>
+                        <span class="faq-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="faq-answer" role="region">
+                        <div class="faq-answer-inner">We review your game film together, assess your basketball IQ and decision patterns, evaluate your recruiting position, and build a custom action plan. You leave with clarity and next steps.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- SECTION 10: PRICING CTA                       -->
+    <!-- ============================================= -->
+    <section id="pricing" class="relative py-24 md:py-32" style="background: var(--bg-dark);">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="gs-scale-up">
+                <div class="section-label justify-center mb-6">Your Next Move</div>
+
+                <h2 class="font-heading heading-section text-white mb-8">
+                    60-Minute Clarity Session
+                </h2>
+
+                <div class="price-display mb-6 text-glow-warm" style="color: var(--warm);">
+                    $447
+                </div>
+
+                <p class="text-gray-400 text-lg leading-relaxed max-w-2xl mx-auto mb-10">
+                    One-on-one film breakdown, personalized recruiting assessment, basketball IQ evaluation, custom action plan with next steps, and email follow-up with resources. Best for players seeking clarity on their position and immediate direction.
+                </p>
+
+                <a href="#pricing" class="btn-warm inline-flex mb-8">
+                    Start Your Clarity Session
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+
+                <div class="flex justify-center">
+                    <div class="guarantee-badge">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <span>If you show up prepared and don't walk away with actionable clarity, we'll make it right.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- SECTION 11: FINAL CTA                         -->
+    <!-- ============================================= -->
+    <section class="relative py-24 md:py-32 clip-diagonal" data-persist="true" style="background: linear-gradient(135deg, var(--primary) 0%, var(--surface) 100%);">
+        <!-- Glow orb -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-20" style="background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);"></div>
+
+        <div class="relative max-w-4xl mx-auto px-6 text-center">
+            <h2 class="font-heading heading-cta text-white mb-6 gs-fade-up">
+                If you're serious about getting on the floor, this is where it starts.
+            </h2>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-10 gs-fade-up">
+                Stop waiting for someone to notice you. Start understanding what they're actually looking for.
+            </p>
+            <div class="gs-fade-up">
+                <a href="#pricing" class="btn-warm inline-flex">
+                    Start Your Clarity Session
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- SECTION 12: FOOTER                            -->
+    <!-- ============================================= -->
+    <footer class="relative py-12" style="background: var(--bg-dark); border-top: 1px solid rgba(255,255,255,0.06);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <img src="" alt="Prefrontal Plays" class="h-6 w-auto" onerror="this.style.display='none'">
+                    <span class="font-heading text-lg tracking-wider text-white">Prefrontal Plays</span>
+                </div>
+                <div class="flex items-center gap-6 text-sm text-gray-500">
+                    <a href="mailto:Info@prefrontalplays.com" class="hover:text-white transition-colors">Info@prefrontalplays.com</a>
+                    <span>&copy; 2024 Prefrontal Plays</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CDN Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+    <script>
+    (function() {
+        'use strict';
+
+        // ==========================================
+        // LENIS SMOOTH SCROLL
+        // ==========================================
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            orientation: 'vertical',
+            gestureOrientation: 'vertical',
+            smoothWheel: true,
+            wheelMultiplier: 1,
+            touchMultiplier: 2,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Sync Lenis with GSAP ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0);
+
+        // ==========================================
+        // GSAP + SCROLLTRIGGER SETUP
+        // ==========================================
+        gsap.registerPlugin(ScrollTrigger);
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const dur = prefersReducedMotion ? 0.01 : 0.8;
+        const ease = 'power3.out';
+
+        // ==========================================
+        // NAV SCROLL EFFECT
+        // ==========================================
+        const nav = document.getElementById('main-nav');
+        ScrollTrigger.create({
+            start: 'top -80',
+            onUpdate: (self) => {
+                if (self.direction === 1 || self.scroll() > 80) {
+                    nav.classList.add('nav-solid');
+                } else {
+                    nav.classList.remove('nav-solid');
+                }
+            }
+        });
+
+        // ==========================================
+        // SECTION 2: HERO â€” Stagger-up
+        // ==========================================
+        const heroEls = document.querySelectorAll('[data-stagger]');
+        const heroSorted = Array.from(heroEls).sort((a, b) =>
+            parseInt(a.dataset.stagger) - parseInt(b.dataset.stagger)
+        );
+        gsap.fromTo(heroSorted, {
+            opacity: 0,
+            y: 60
+        }, {
+            opacity: 1,
+            y: 0,
+            duration: dur,
+            ease: ease,
+            stagger: 0.15,
+            delay: 0.3
+        });
+
+        // ==========================================
+        // SECTION 3: VIDEO â€” Scale-up
+        // ==========================================
+        gsap.utils.toArray('.gs-scale-up').forEach(el => {
+            gsap.fromTo(el, {
+                opacity: 0,
+                scale: 0.85
+            }, {
+                opacity: 1,
+                scale: 1,
+                duration: dur * 1.2,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    end: 'top 50%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        // ==========================================
+        // SECTION 4: PROBLEM/SOLUTION â€” Slide-left / Slide-right
+        // ==========================================
+        gsap.utils.toArray('.gs-slide-left').forEach(el => {
+            gsap.fromTo(el, {
+                opacity: 0,
+                x: -80
+            }, {
+                opacity: 1,
+                x: 0,
+                duration: dur,
+                ease: ease,
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        gsap.utils.toArray('.gs-slide-right').forEach(el => {
+            gsap.fromTo(el, {
+                opacity: 0,
+                x: 80
+            }, {
+                opacity: 1,
+                x: 0,
+                duration: dur,
+                ease: ease,
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        // ==========================================
+        // SECTION 5: BENEFITS â€” Stagger-up
+        // ==========================================
+        const benefitsGrid = document.getElementById('benefits-grid');
+        if (benefitsGrid) {
+            const benefitCards = benefitsGrid.querySelectorAll('.benefit-card');
+            gsap.fromTo(benefitCards, {
+                opacity: 0,
+                y: 60
+            }, {
+                opacity: 1,
+                y: 0,
+                duration: dur,
+                ease: ease,
+                stagger: 0.12,
+                scrollTrigger: {
+                    trigger: benefitsGrid,
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        }
+
+        // ==========================================
+        // SECTION 6: STATS â€” Counter animation
+        // ==========================================
+        document.querySelectorAll('[data-counter]').forEach(el => {
+            const raw = el.getAttribute('data-counter');
+
+            // Parse numeric part and any suffix (e.g., "500+", "98%", "$5M")
+            const match = raw.match(/^([^0-9]*)([0-9,.]+)(.*)$/);
+            if (!match) { el.textContent = raw; return; }
+
+            const prefix = match[1];
+            const numStr = match[2].replace(/,/g, '');
+            const suffix = match[3];
+            const target = parseFloat(numStr);
+            const hasDecimal = numStr.includes('.');
+            const decimalPlaces = hasDecimal ? numStr.split('.')[1].length : 0;
+            const useCommas = match[2].includes(',');
+
+            const counter = { val: 0 };
+            gsap.to(counter, {
+                val: target,
+                duration: 2,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                },
+                onUpdate: () => {
+                    let display = hasDecimal
+                        ? counter.val.toFixed(decimalPlaces)
+                        : Math.round(counter.val).toString();
+                    if (useCommas) {
+                        display = Number(display).toLocaleString('en-US', {
+                            minimumFractionDigits: decimalPlaces,
+                            maximumFractionDigits: decimalPlaces
+                        });
+                    }
+                    el.textContent = prefix + display + suffix;
+                }
+            });
+        });
+
+        // ==========================================
+        // SECTION 7: MARQUEE â€” Scroll-linked horizontal movement
+        // ==========================================
+        const marqueeTrack = document.getElementById('marquee-sales');
+        if (marqueeTrack) {
+            gsap.to(marqueeTrack, {
+                x: () => -(marqueeTrack.scrollWidth / 2),
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: marqueeTrack.parentElement,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 0.5
+                }
+            });
+        }
+
+        // ==========================================
+        // SECTION 8: TESTIMONIALS (slide-left/right already handled above)
+        // ==========================================
+
+        // ==========================================
+        // SECTION 9: FAQ â€” Clip-reveal
+        // ==========================================
+        const faqContainer = document.getElementById('faq-container');
+        if (faqContainer) {
+            gsap.fromTo(faqContainer, {
+                clipPath: 'inset(0 0 100% 0)'
+            }, {
+                clipPath: 'inset(0 0 0% 0)',
+                duration: dur * 1.5,
+                ease: 'power3.inOut',
+                scrollTrigger: {
+                    trigger: faqContainer,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        }
+
+        // ==========================================
+        // SECTION 10: PRICING (gs-scale-up already handled above)
+        // ==========================================
+
+        // ==========================================
+        // SECTION 11: FINAL CTA â€” Fade-up
+        // ==========================================
+        gsap.utils.toArray('.gs-fade-up').forEach(el => {
+            // Skip hero elements (already animated)
+            if (el.hasAttribute('data-stagger')) return;
+
+            gsap.fromTo(el, {
+                opacity: 0,
+                y: 60
+            }, {
+                opacity: 1,
+                y: 0,
+                duration: dur,
+                ease: ease,
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 88%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        // ==========================================
+        // FAQ ACCORDION
+        // ==========================================
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.parentElement;
+                const isActive = item.classList.contains('active');
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+
+                // Close all
+                document.querySelectorAll('.faq-item').forEach(i => {
+                    i.classList.remove('active');
+                    i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                });
+
+                // Toggle current
+                if (!isActive) {
+                    item.classList.add('active');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+    })();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prefrontal Plays | Basketball Intelligence for Serious Players</title>
+    <meta name="description" content="Cut through the noise. Get real recruiting clarity, decision frameworks, and the psychological edge trusted by serious players and parents. Built from the game. Backed by psychology.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --primary-glow: #2563EB;
+            --warm: #F59E0B;
+            --warm-glow: #FBBF24;
+            --bg-dark: #0A0A0A;
+            --surface: #0F1629;
+            --heading-font: 'Bebas Neue', 'Impact', sans-serif;
+            --body-font: 'Inter', system-ui, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            background: var(--bg-dark);
+            color: #E2E8F0;
+            font-family: var(--body-font);
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: auto;
+        }
+
+        body {
+            overflow-x: hidden;
+            background: var(--bg-dark);
+        }
+
+        /* Lenis overrides */
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+
+        /* Court-line SVG overlay */
+        .court-lines {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect x='40' y='40' width='320' height='320' fill='none' stroke='%23ffffff' stroke-width='1.5'/%3E%3Cline x1='200' y1='40' x2='200' y2='360' stroke='%23ffffff' stroke-width='1'/%3E%3Ccircle cx='200' cy='200' r='60' fill='none' stroke='%23ffffff' stroke-width='1'/%3E%3Crect x='40' y='130' width='80' height='140' fill='none' stroke='%23ffffff' stroke-width='0.8'/%3E%3Crect x='280' y='130' width='80' height='140' fill='none' stroke='%23ffffff' stroke-width='0.8'/%3E%3C/svg%3E");
+            background-size: 400px 400px;
+        }
+
+        /* Typography */
+        .font-heading {
+            font-family: var(--heading-font);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            line-height: 0.95;
+        }
+
+        .font-body { font-family: var(--body-font); }
+
+        /* Diagonal clip */
+        .clip-diagonal { clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
+        .clip-diagonal-reverse { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%); }
+        .clip-diagonal-both { clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%); }
+        .clip-diagonal-up { clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%); }
+
+        /* Glassmorphism nav */
+        .nav-glass {
+            background: rgba(10, 10, 10, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .nav-scrolled {
+            background: rgba(10, 10, 10, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Nav link style */
+        .nav-link {
+            font-family: var(--body-font);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #94A3B8;
+            text-decoration: none;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover { color: #fff; }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--warm);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after { width: 100%; }
+
+        /* Mobile menu */
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-menu .nav-link {
+            font-family: var(--heading-font);
+            font-size: 2rem;
+            letter-spacing: 0.1em;
+            color: #E2E8F0;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            width: 28px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+            z-index: 110;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: #fff;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-desktop { display: none !important; }
+        }
+
+        /* Section label */
+        .section-label {
+            font-family: var(--body-font);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--warm);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 2rem;
+            height: 2px;
+            background: var(--warm);
+        }
+
+        /* Glow effects */
+        .glow-primary {
+            box-shadow: 0 0 30px rgba(37, 99, 235, 0.3), 0 0 60px rgba(37, 99, 235, 0.1);
+        }
+
+        .glow-warm {
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.3), 0 0 60px rgba(245, 158, 11, 0.1);
+        }
+
+        .text-glow-primary {
+            text-shadow: 0 0 40px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Button styles */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.1rem 2.8rem;
+            background: var(--primary);
+            color: #fff;
+            font-family: var(--heading-font);
+            font-size: 1.25rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-glow);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .btn-primary:hover::after { transform: translateX(100%); }
+
+        .btn-warm {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem 3.2rem;
+            background: var(--warm);
+            color: #0A0A0A;
+            font-family: var(--heading-font);
+            font-size: 1.5rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-warm:hover {
+            background: var(--warm-glow);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-warm::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .btn-warm:hover::after { transform: translateX(100%); }
+
+        /* Service card */
+        .service-card {
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: linear-gradient(135deg, transparent 45%, rgba(37, 99, 235, 0.05) 50%, transparent 55%);
+            transform: rotate(-20deg);
+            transition: opacity 0.4s ease;
+            opacity: 0;
+        }
+
+        .service-card:hover {
+            border-color: rgba(37, 99, 235, 0.2);
+            transform: translateY(-6px);
+        }
+
+        .service-card:hover::before { opacity: 1; }
+
+        /* Diagonal accent stripe on service card */
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-glow));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .service-card:hover::after { transform: scaleX(1); }
+
+        /* Testimonial card */
+        .testimonial-card {
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '\201C';
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            font-size: 4rem;
+            font-family: var(--heading-font);
+            color: var(--primary-glow);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        /* Stat counter */
+        .stat-value {
+            font-family: var(--heading-font);
+            font-size: 4.5rem;
+            color: var(--warm);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-family: var(--body-font);
+            font-size: 0.85rem;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-top: 0.5rem;
+        }
+
+        /* Marquee */
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            will-change: transform;
+        }
+
+        .marquee-text {
+            font-family: var(--heading-font);
+            font-size: clamp(3rem, 6vw, 5rem);
+            text-transform: uppercase;
+            white-space: nowrap;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
+            padding: 0 2vw;
+            line-height: 1.1;
+            user-select: none;
+        }
+
+        .marquee-text .filled {
+            -webkit-text-stroke: 0;
+            color: rgba(255, 255, 255, 0.03);
+        }
+
+        .marquee-text .accent {
+            -webkit-text-stroke-color: var(--primary-glow);
+            opacity: 0.3;
+        }
+
+        /* About credential badge */
+        .credential-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            color: var(--primary-glow);
+            font-family: var(--heading-font);
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* Refined typography scale */
+        .heading-hero { font-size: clamp(3rem, 5vw + 1rem, 5rem); }
+        .heading-section { font-size: clamp(2rem, 3vw + 0.5rem, 3rem); }
+        .heading-subsection { font-size: clamp(1.5rem, 2vw + 0.5rem, 2.25rem); }
+        .heading-cta { font-size: clamp(2.5rem, 4vw + 0.5rem, 4rem); }
+        .subheading-hero { font-size: clamp(1.25rem, 1.5vw + 0.5rem, 1.75rem); }
+
+        /* GSAP initial states */
+        .gs-hidden { opacity: 0; }
+        .gs-fade-up { opacity: 0; transform: translateY(60px); }
+        .gs-slide-left { opacity: 0; transform: translateX(-80px); }
+        .gs-slide-right { opacity: 0; transform: translateX(80px); }
+        .gs-scale-up { opacity: 0; transform: scale(0.85); }
+        .gs-clip-reveal { clip-path: inset(0 0 100% 0); }
+        .gs-rotate-in { opacity: 0; transform: rotate(-5deg) translateY(40px); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stat-value { font-size: 2.5rem; }
+            .btn-warm { padding: 1rem 2rem; font-size: 1.2rem; }
+            .btn-primary { padding: 0.9rem 2rem; font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Court-line texture overlay -->
+    <div class="court-lines" aria-hidden="true"></div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 1: FIXED NAV                          -->
+    <!-- ============================================= -->
+    <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 nav-glass transition-all duration-500" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="https://prefrontalplays.com" class="flex items-center gap-3 text-white no-underline z-50 relative">
+                <img src="" alt="Prefrontal Plays logo" class="h-8 w-auto" onerror="this.style.display='none'">
+                <span class="font-heading text-xl tracking-wider">Prefrontal Plays</span>
+            </a>
+
+            <!-- Desktop nav links -->
+            <div class="nav-desktop hidden md:flex items-center gap-8">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#testimonials" class="nav-link">Testimonials</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#contact" class="btn-primary" style="padding: 0.65rem 1.6rem; font-size: 0.95rem;">
+                    Book A Call
+                </a>
+            </div>
+
+            <!-- Hamburger (mobile) -->
+            <button class="hamburger" id="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile menu overlay -->
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="#about" class="nav-link mobile-nav-link">About</a>
+        <a href="#services" class="nav-link mobile-nav-link">Services</a>
+        <a href="#testimonials" class="nav-link mobile-nav-link">Testimonials</a>
+        <a href="#contact" class="nav-link mobile-nav-link">Contact</a>
+        <a href="#contact" class="btn-warm" style="margin-top: 1rem;">
+            Book A Call
+        </a>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 2: HERO                               -->
+    <!-- ============================================= -->
+    <section class="relative min-h-screen flex items-center clip-diagonal overflow-hidden">
+        <!-- Background image -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://bradfordcarlton.com/client-assets/prefrontal-plays/hero-homepage.jpg');"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-[#0A0A0A]"></div>
+        </div>
+
+        <!-- Accent glow orb -->
+        <div class="absolute top-1/3 right-0 w-[600px] h-[600px] rounded-full opacity-15 z-0" style="background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 py-32 md:py-40 lg:py-48">
+            <div class="max-w-5xl">
+                <div class="section-label gs-fade-up mb-6" data-hero-stagger="1">Prefrontal Plays</div>
+
+                <h1 class="font-heading heading-hero text-white leading-none mb-6 gs-fade-up" data-hero-stagger="2">
+                    Talent opens the door. But Basketball Intelligence decides if you stay on the floor.
+                </h1>
+
+                <p class="font-heading subheading-hero leading-tight mb-10 gs-fade-up" data-hero-stagger="3" style="color: var(--primary-glow);">
+                    Cut through the noise. Get real recruiting clarity, decision frameworks, and the psychological edge trusted by serious players and parents. Built from the game. Backed by psychology.
+                </p>
+
+                <div class="gs-fade-up" data-hero-stagger="4">
+                    <a href="#contact" class="btn-warm">
+                        Book A Call
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-16 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-60">
+            <span class="text-xs uppercase tracking-[0.2em] text-gray-400 font-medium">Scroll</span>
+            <div class="w-px h-8 bg-gradient-to-b from-white/40 to-transparent animate-pulse"></div>
+        </div>
+
+        <!-- Diagonal accent line -->
+        <div class="absolute bottom-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, var(--primary-glow), transparent); transform: rotate(-2deg) translateY(-20px);"></div>
+    </section>
+
+    <!-- ============================================= -->
+    
+    <!-- ============================================= -->
+    <!-- SECTION 2.5: TRUST BAR                        -->
+    <!-- ============================================= -->
+    <section class="relative py-10 md:py-14" style="background: var(--surface); border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04);">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="font-body text-xs uppercase tracking-[0.25em] text-gray-500 mb-6">Trusted By Players At Every Level</p>
+            <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-3">
+                <span class="font-heading text-lg text-gray-400 tracking-wider">NBA</span>
+                <span class="text-gray-700">|</span>
+                <span class="font-body text-sm text-gray-500 uppercase tracking-wider">Nike EYBL Circuit</span>
+                <span class="text-gray-700">|</span>
+                <span class="font-body text-sm text-gray-500 uppercase tracking-wider">D1 Conference Champions</span>
+                <span class="text-gray-700">|</span>
+                <span class="font-body text-sm text-gray-500 uppercase tracking-wider">International Professional</span>
+            </div>
+            <div class="mt-8">
+                <a href="#contact" class="btn-primary inline-flex" style="padding: 0.65rem 1.6rem; font-size: 0.95rem;">
+                    Book A Call
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+<!-- SECTION 3: ABOUT                              -->
+    <!-- ============================================= -->
+    <section id="about" class="relative py-24 md:py-32" style="background: var(--bg-dark);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+
+                <!-- Text column -->
+                <div class="gs-slide-left">
+                    <div class="section-label mb-6">About Chris Lee</div>
+                    <h2 class="font-heading heading-section text-white mb-6">
+                        Most coaches teach skill. Chris Lee teaches what keeps you on the floor.
+                    </h2>
+                    <div class="text-gray-400 text-lg leading-relaxed mb-8 space-y-4">
+                        <p>Chris Lee operates at the intersection of collegiate basketball, professional player development, and applied sport psychology.</p><p class="mt-4">As a current college basketball coach, Chris works daily in recruiting, scouting, and game planning inside a conference championship-level program. He also coaches on the Nike EYBL circuit, working with elite high school athletes navigating national exposure and recruiting pressure.</p><p class="mt-4">In the professional space, Chris has worked with NBA athletes using film, analytics, and behavioral frameworks to translate knowledge into real decision-making under pressure.</p><p class="mt-4">Before coaching, he played professionally in Germany, Brazil, and Peruâ€”experiences that shaped his understanding of adaptation, identity, and long-term success in the game.</p><p class="mt-4">Chris is currently completing his Master of Science in Applied Psychology, formalizing the same frameworks he applies every day on the court.</p>
+                    </div>
+                    <div class="credential-badge" style="display:block;padding:1rem 1.2rem;line-height:1.6;">
+                        Chris Lee works inside real college programs, real recruiting rooms, and real player development environmentsâ€”where playing time is earned through decisions, not just talent.
+                    </div>
+                </div>
+
+                <!-- Image column -->
+                <div class="gs-slide-right relative">
+                    <div class="relative overflow-hidden" style="clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);">
+                        <img
+                            src="https://bradfordcarlton.com/client-assets/prefrontal-plays/about-chris.jpg"
+                            alt="About Prefrontal Plays"
+                            class="w-full h-[500px] object-cover"
+                            loading="lazy"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/40 to-transparent"></div>
+                    </div>
+                    <!-- Accent border -->
+                    <div class="absolute -bottom-3 -right-3 w-full h-full border-2 -z-10" style="border-color: var(--primary); opacity: 0.2;"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- SECTION 4: HORIZONTAL MARQUEE                 -->
+    <!-- ============================================= -->
+    <section class="relative py-8 md:py-12 overflow-hidden" style="background: var(--bg-dark);" aria-hidden="true">
+        <div class="marquee-track" id="marquee-homepage">
+            <span class="marquee-text">Basketball Intelligence</span>
+            <span class="marquee-text accent">&bull;</span>
+            <span class="marquee-text">Basketball Intelligence</span>
+            <span class="marquee-text accent">&bull;</span>
+            <span class="marquee-text">Basketball Intelligence</span>
+            <span class="marquee-text accent">&bull;</span>
+            <span class="marquee-text">Basketball Intelligence</span>
+            <span class="marquee-text accent">&bull;</span>
+            <span class="marquee-text">Basketball Intelligence</span>
+            <span class="marquee-text accent">&bull;</span>
+        </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- SECTION 5: SERVICES                           -->
+    <!-- ============================================= -->
+    <section id="services" class="relative py-24 md:py-32 clip-diagonal-both" style="background: var(--surface);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="section-label justify-center gs-fade-up mb-4">What I Do</div>
+                <h2 class="font-heading heading-section text-white gs-fade-up">I help serious basketball players stop guessing what coaches wantâ€”and start becoming players coaches trust.</h2>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-6 md:gap-8" id="services-grid">
+                <!-- Service 1 -->
+                <div class="service-card gs-fade-up" data-stagger-group="services">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 flex items-center justify-center mb-6" style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2);">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary-glow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        </div>
+                        <h3 class="font-heading text-2xl md:text-3xl text-white mb-3">Basketball Intelligence Coaching</h3>
+                        <p class="text-gray-400 leading-relaxed">A structured, 1:1 coaching experience designed to help you earn consistent minutes by improving how you think, decide, and perform under pressure.</p>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card gs-fade-up" data-stagger-group="services">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 flex items-center justify-center mb-6" style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2);">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary-glow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <h3 class="font-heading text-2xl md:text-3xl text-white mb-3">Game Film Breakdown</h3>
+                        <p class="text-gray-400 leading-relaxed">We review film with you, not at you. Identify real patterns in your decisionsâ€”not what you think is happening.</p>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card gs-fade-up" data-stagger-group="services">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 flex items-center justify-center mb-6" style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2);">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary-glow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        </div>
+                        <h3 class="font-heading text-2xl md:text-3xl text-white mb-3">Side-by-Side Analysis</h3>
+                        <p class="text-gray-400 leading-relaxed">Compare your journal entries against actual game film to close the gap between perception and reality.</p>
+                    </div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card gs-fade-up" data-stagger-group="services">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 flex items-center justify-center mb-6" style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2);">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary-glow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <h3 class="font-heading text-2xl md:text-3xl text-white mb-3">Role Clarity System</h3>
+                        <p class="text-gray-400 leading-relaxed">Understand exactly what your coach expectsâ€”and how to execute it. No more guessing.</p>
+                    </div>
+                </div>
+
+                <!-- Service 5 (optional) -->
+                <div class="service-card gs-fade-up" data-stagger-group="services">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 flex items-center justify-center mb-6" style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2);">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary-glow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        </div>
+                        <h3 class="font-heading text-2xl md:text-3xl text-white mb-3">Decision-Making Training</h3>
+                        <p class="text-gray-400 leading-relaxed">Learn how to read spacing, timing, and advantage in real time. Make faster, better decisions when it matters.</p>
+                    </div>
+                </div>
+
+                <!-- Service 6 (optional) -->
+                <div class="service-card gs-fade-up" data-stagger-group="services">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 flex items-center justify-center mb-6" style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2);">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary-glow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <h3 class="font-heading text-2xl md:text-3xl text-white mb-3">Pressure & Confidence Training</h3>
+                        <p class="text-gray-400 leading-relaxed">Build consistency through behaviorâ€”not emotion. Develop the habits that perform under pressure.</p>
+                    </div>
+                </div>
+
+                <!-- Service 7 (optional) -->
+                <div class="service-card gs-fade-up" data-stagger-group="services">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 flex items-center justify-center mb-6" style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2);">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary-glow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        </div>
+                        <h3 class="font-heading text-2xl md:text-3xl text-white mb-3">Communication & Trust Development</h3>
+                        <p class="text-gray-400 leading-relaxed">Improve body language, habits, and reliability that coaches actually reward. Earn trust through action.</p>
+                    </div>
+                </div>
+
+                <!-- Service 8 (optional) -->
+                <div class="service-card gs-fade-up" data-stagger-group="services">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 flex items-center justify-center mb-6" style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2);">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary-glow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </div>
+                        <h3 class="font-heading text-2xl md:text-3xl text-white mb-3">Personalized Growth System</h3>
+                        <p class="text-gray-400 leading-relaxed">A repeatable system using journal + film + feedback so you continue improving beyond the program.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- SECTION 6: STATS                              -->
+    <!-- ============================================= -->
+    <section class="relative py-24 md:py-32" style="background: var(--bg-dark);">
+        <!-- Dark gradient overlay -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[var(--primary)]/5 via-transparent to-[var(--warm)]/5"></div>
+
+        <div class="relative max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="section-label justify-center gs-fade-up mb-4">Experience</div>
+                <h2 class="font-heading heading-section text-white gs-fade-up">The Numbers</h2>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
+                <!-- Stat 1 -->
+                <div>
+                    <div class="stat-value" data-counter="3">0</div>
+                    <div class="stat-label">Countries Played Professionally</div>
+                </div>
+                <!-- Stat 2 -->
+                <div>
+                    <div class="stat-value" data-counter="500+">0</div>
+                    <div class="stat-label">Players Coached & Evaluated</div>
+                </div>
+                <!-- Stat 3 -->
+                <div>
+                    <div class="stat-value" data-counter="NBA">0</div>
+                    <div class="stat-label">Athletes Worked With</div>
+                </div>
+                <!-- Stat 4 -->
+                <div>
+                    <div class="stat-value" data-counter="MSc">0</div>
+                    <div class="stat-label">Applied Psychology (in progress)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- SECTION 7: TESTIMONIALS                       -->
+    <!-- ============================================= -->
+    <section id="testimonials" class="relative py-24 md:py-32 clip-diagonal-both" style="background: var(--surface);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="section-label justify-center gs-fade-up mb-4">Results</div>
+                <h2 class="font-heading heading-section text-white gs-fade-up">What Players Say</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card gs-slide-left">
+                    <blockquote class="relative z-10">
+                        <p class="text-gray-300 text-lg leading-relaxed mb-6 italic">
+                            "Before working with Chris, I had no idea why I was losing minutes. Now I understand what coaches actually seeâ€”and what they trust."
+                        </p>
+                        <footer class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center font-heading text-lg" style="background: var(--primary); color: #fff;">
+                                Player Testimonial (Placeholder)
+                            </div>
+                            <div>
+                                <cite class="not-italic font-heading text-lg text-white tracking-wide">Player Testimonial (Placeholder)</cite>
+                                <p class="text-gray-500 text-sm">D1 Guard</p>
+                            </div>
+                        </footer>
+                    </blockquote>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card gs-slide-right">
+                    <blockquote class="relative z-10">
+                        <p class="text-gray-300 text-lg leading-relaxed mb-6 italic">
+                            "The film breakdown alone changed how I see the game. I stopped guessing and started making decisions that coaches reward."
+                        </p>
+                        <footer class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center font-heading text-lg" style="background: var(--primary); color: #fff;">
+                                Player Testimonial (Placeholder)
+                            </div>
+                            <div>
+                                <cite class="not-italic font-heading text-lg text-white tracking-wide">Player Testimonial (Placeholder)</cite>
+                                <p class="text-gray-500 text-sm">EYBL Athlete</p>
+                            </div>
+                        </footer>
+                    </blockquote>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card gs-slide-left">
+                    <blockquote class="relative z-10">
+                        <p class="text-gray-300 text-lg leading-relaxed mb-6 italic">
+                            "Chris helped my son understand what recruiters actually look for. Not hype. Not promises. Just clarity."
+                        </p>
+                        <footer class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center font-heading text-lg" style="background: var(--primary); color: #fff;">
+                                Parent Testimonial (Placeholder)
+                            </div>
+                            <div>
+                                <cite class="not-italic font-heading text-lg text-white tracking-wide">Parent Testimonial (Placeholder)</cite>
+                                <p class="text-gray-500 text-sm">Parent of HS Junior</p>
+                            </div>
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- SECTION 8: CTA                                -->
+    <!-- ============================================= -->
+    <section id="contact" class="relative py-28 md:py-36" style="background: linear-gradient(135deg, var(--primary) 0%, var(--surface) 100%);">
+        <!-- Glow orbs -->
+        <div class="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-15" style="background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);"></div>
+        <div class="absolute top-1/2 right-1/4 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full opacity-10" style="background: radial-gradient(circle, var(--warm) 0%, transparent 70%);"></div>
+
+        <div class="relative max-w-4xl mx-auto px-6 text-center gs-scale-up">
+            <div class="section-label justify-center mb-6" style="color: var(--warm);">Take The Next Step</div>
+
+            <h2 class="font-heading heading-cta text-white mb-6 text-glow-primary">
+                Stop guessing. Start earning.
+            </h2>
+
+            <p class="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto mb-12 leading-relaxed">
+                If you're serious about getting on the floor, this is where it starts. Book a call and find out what's actually costing you minutes.
+            </p>
+
+            <a href="#contact" class="btn-warm inline-flex">
+                Book A Call
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- SECTION 9: FOOTER                             -->
+    <!-- ============================================= -->
+    <footer class="relative py-16 md:py-20" style="background: var(--bg-dark); border-top: 1px solid rgba(255,255,255,0.06);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-12 md:gap-16 mb-12">
+
+                <!-- Brand column -->
+                <div>
+                    <a href="https://prefrontalplays.com" class="flex items-center gap-3 mb-4 text-white no-underline">
+                        <img src="" alt="Prefrontal Plays" class="h-8 w-auto" onerror="this.style.display='none'">
+                        <span class="font-heading text-2xl tracking-wider">Prefrontal Plays</span>
+                    </a>
+                    <p class="text-gray-500 text-sm leading-relaxed">Basketball Intelligence</p>
+                </div>
+
+                <!-- Contact column -->
+                <div>
+                    <h4 class="font-heading text-lg text-white tracking-wider mb-4">Contact</h4>
+                    <div class="space-y-3 text-sm">
+                        <a href="mailto:Info@prefrontalplays.com" class="flex items-center gap-3 text-gray-400 hover:text-white transition-colors">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            Info@prefrontalplays.com
+                        </a>
+                        <a href="tel:" class="flex items-center gap-3 text-gray-400 hover:text-white transition-colors">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Social column -->
+                <div>
+                    <h4 class="font-heading text-lg text-white tracking-wider mb-4">Follow Us</h4>
+                    <div class="flex gap-4">
+                        <!-- Social link placeholders -->
+                        <a href="#" class="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-white transition-colors" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);" aria-label="Facebook">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-white transition-colors" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);" aria-label="Instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-white transition-colors" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);" aria-label="Twitter/X">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-white transition-colors" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);" aria-label="YouTube">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-600">
+                <span>&copy; 2024 Prefrontal Plays. All rights reserved.</span>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CDN Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+    <script>
+    (function() {
+        'use strict';
+
+        // ==========================================
+        // LENIS SMOOTH SCROLL
+        // ==========================================
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            orientation: 'vertical',
+            gestureOrientation: 'vertical',
+            smoothWheel: true,
+            wheelMultiplier: 1,
+            touchMultiplier: 2,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Sync Lenis with GSAP ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0);
+
+        // Handle anchor links with Lenis
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    lenis.scrollTo(target, { offset: -80 });
+                }
+            });
+        });
+
+        // ==========================================
+        // GSAP + SCROLLTRIGGER SETUP
+        // ==========================================
+        gsap.registerPlugin(ScrollTrigger);
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const dur = prefersReducedMotion ? 0.01 : 0.8;
+        const ease = 'power3.out';
+
+        // ==========================================
+        // NAV GLASSMORPHISM ON SCROLL
+        // ==========================================
+        const nav = document.getElementById('main-nav');
+        ScrollTrigger.create({
+            start: 'top -100',
+            onUpdate: (self) => {
+                if (self.scroll() > 100) {
+                    nav.classList.add('nav-scrolled');
+                    nav.classList.remove('nav-glass');
+                } else {
+                    nav.classList.remove('nav-scrolled');
+                    nav.classList.add('nav-glass');
+                }
+            }
+        });
+
+        // ==========================================
+        // MOBILE MENU
+        // ==========================================
+        const hamburger = document.getElementById('hamburger-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        hamburger.addEventListener('click', () => {
+            const isActive = hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', isActive);
+            document.body.style.overflow = isActive ? 'hidden' : '';
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // ==========================================
+        // SECTION 2: HERO â€” Stagger-up (label -> heading -> sub -> CTA)
+        // ==========================================
+        const heroEls = document.querySelectorAll('[data-hero-stagger]');
+        const heroSorted = Array.from(heroEls).sort((a, b) =>
+            parseInt(a.dataset.heroStagger) - parseInt(b.dataset.heroStagger)
+        );
+        gsap.fromTo(heroSorted, {
+            opacity: 0,
+            y: 60
+        }, {
+            opacity: 1,
+            y: 0,
+            duration: dur,
+            ease: ease,
+            stagger: 0.18,
+            delay: 0.4
+        });
+
+        // ==========================================
+        // SECTION 3: ABOUT â€” Slide-left / Slide-right
+        // ==========================================
+        gsap.utils.toArray('.gs-slide-left').forEach(el => {
+            gsap.fromTo(el, {
+                opacity: 0,
+                x: -80
+            }, {
+                opacity: 1,
+                x: 0,
+                duration: dur,
+                ease: ease,
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        gsap.utils.toArray('.gs-slide-right').forEach(el => {
+            gsap.fromTo(el, {
+                opacity: 0,
+                x: 80
+            }, {
+                opacity: 1,
+                x: 0,
+                duration: dur,
+                ease: ease,
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        // ==========================================
+        // SECTION 4: MARQUEE â€” Scroll-linked horizontal movement
+        // ==========================================
+        const marqueeTrack = document.getElementById('marquee-homepage');
+        if (marqueeTrack) {
+            gsap.to(marqueeTrack, {
+                x: () => -(marqueeTrack.scrollWidth / 2),
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: marqueeTrack.parentElement,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 0.5
+                }
+            });
+        }
+
+        // ==========================================
+        // SECTION 5: SERVICES â€” Stagger-up
+        // ==========================================
+        const servicesGrid = document.getElementById('services-grid');
+        if (servicesGrid) {
+            const serviceCards = servicesGrid.querySelectorAll('.service-card');
+            gsap.fromTo(serviceCards, {
+                opacity: 0,
+                y: 60
+            }, {
+                opacity: 1,
+                y: 0,
+                duration: dur,
+                ease: ease,
+                stagger: 0.12,
+                scrollTrigger: {
+                    trigger: servicesGrid,
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        }
+
+        // ==========================================
+        // SECTION 6: STATS â€” Counter animation
+        // ==========================================
+        document.querySelectorAll('[data-counter]').forEach(el => {
+            const raw = el.getAttribute('data-counter');
+
+            // Parse numeric part and any suffix/prefix (e.g., "500+", "98%", "$5M")
+            const match = raw.match(/^([^0-9]*)([0-9,.]+)(.*)$/);
+            if (!match) { el.textContent = raw; return; }
+
+            const prefix = match[1];
+            const numStr = match[2].replace(/,/g, '');
+            const suffix = match[3];
+            const target = parseFloat(numStr);
+            const hasDecimal = numStr.includes('.');
+            const decimalPlaces = hasDecimal ? numStr.split('.')[1].length : 0;
+            const useCommas = match[2].includes(',');
+
+            const counter = { val: 0 };
+            gsap.to(counter, {
+                val: target,
+                duration: 2.2,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                },
+                onUpdate: () => {
+                    let display = hasDecimal
+                        ? counter.val.toFixed(decimalPlaces)
+                        : Math.round(counter.val).toString();
+                    if (useCommas) {
+                        display = Number(display).toLocaleString('en-US', {
+                            minimumFractionDigits: decimalPlaces,
+                            maximumFractionDigits: decimalPlaces
+                        });
+                    }
+                    el.textContent = prefix + display + suffix;
+                }
+            });
+        });
+
+        // ==========================================
+        // SECTION 7: TESTIMONIALS (slide-left/right already handled above)
+        // ==========================================
+
+        // ==========================================
+        // SECTION 8: CTA â€” Scale-up
+        // ==========================================
+        gsap.utils.toArray('.gs-scale-up').forEach(el => {
+            gsap.fromTo(el, {
+                opacity: 0,
+                scale: 0.85
+            }, {
+                opacity: 1,
+                scale: 1,
+                duration: dur * 1.2,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    end: 'top 50%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        // ==========================================
+        // GENERAL: Fade-up for section labels/headings
+        // ==========================================
+        gsap.utils.toArray('.gs-fade-up').forEach(el => {
+            // Skip hero elements (already animated)
+            if (el.hasAttribute('data-hero-stagger')) return;
+
+            gsap.fromTo(el, {
+                opacity: 0,
+                y: 60
+            }, {
+                opacity: 1,
+                y: 0,
+                duration: dur,
+                ease: ease,
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 88%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+    })();
+    </script>
+
+</body>
+</html>

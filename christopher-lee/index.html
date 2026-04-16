@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prefrontal Plays - Website Preview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #0A0A0A;
+            color: #E2E8F0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            max-width: 720px;
+            width: 100%;
+            padding: 3rem 2rem;
+        }
+        .brand {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .brand h1 {
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        .brand p {
+            color: #64748B;
+            font-size: 0.9rem;
+        }
+        .brand .badge {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.35rem 1rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #F59E0B;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            background: rgba(245, 158, 11, 0.08);
+        }
+        .section-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #64748B;
+            margin-bottom: 0.75rem;
+            margin-top: 2rem;
+        }
+        .pages {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            color: #E2E8F0;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .page-link:hover {
+            background: rgba(30, 58, 138, 0.15);
+            border-color: rgba(37, 99, 235, 0.3);
+            transform: translateX(4px);
+        }
+        .page-link .name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .page-link .desc {
+            font-size: 0.75rem;
+            color: #64748B;
+            margin-top: 0.2rem;
+        }
+        .page-link .arrow {
+            color: #2563EB;
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .page-link:hover .arrow { opacity: 1; }
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            color: #475569;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="brand">
+            <h1>Prefrontal Plays</h1>
+            <p>Website Preview for Christopher Lee</p>
+            <span class="badge">Draft - For Review</span>
+        </div>
+
+        <div class="section-label">Core Pages</div>
+        <div class="pages">
+            <a href="homepage/" class="page-link">
+                <div>
+                    <div class="name">Homepage</div>
+                    <div class="desc">Main landing page - hero, about Chris Lee, services, testimonials</div>
+                </div>
+                <span class="arrow">&rarr;</span>
+            </a>
+            <a href="lead-magnet/" class="page-link">
+                <div>
+                    <div class="name">Lead Magnet - Parent's Playbook</div>
+                    <div class="desc">Free ebook opt-in page for parents</div>
+                </div>
+                <span class="arrow">&rarr;</span>
+            </a>
+            <a href="lead-magnet-thankyou/" class="page-link">
+                <div>
+                    <div class="name">Lead Magnet - Thank You</div>
+                    <div class="desc">Post-download confirmation + bridge to coaching</div>
+                </div>
+                <span class="arrow">&rarr;</span>
+            </a>
+        </div>
+
+        <div class="section-label">High Ticket - Coaching ($447 Clarity Session)</div>
+        <div class="pages">
+            <a href="coaching-sales/" class="page-link">
+                <div>
+                    <div class="name">Sales Page - Coaching</div>
+                    <div class="desc">60-minute Clarity Session - film breakdown, recruiting assessment, action plan</div>
+                </div>
+                <span class="arrow">&rarr;</span>
+            </a>
+            <a href="coaching-purchase/" class="page-link">
+                <div>
+                    <div class="name">Purchase Page - Coaching</div>
+                    <div class="desc">Checkout page with deliverables and form</div>
+                </div>
+                <span class="arrow">&rarr;</span>
+            </a>
+            <a href="coaching-receipt/" class="page-link">
+                <div>
+                    <div class="name">Receipt - Coaching</div>
+                    <div class="desc">Post-purchase confirmation + next steps</div>
+                </div>
+                <span class="arrow">&rarr;</span>
+            </a>
+        </div>
+
+        <div class="section-label">Low Ticket - Player's Journal ($30)</div>
+        <div class="pages">
+            <a href="journal-sales/" class="page-link">
+                <div>
+                    <div class="name">Sales Page - Player's Journal</div>
+                    <div class="desc">Structured post-game decision tracking system</div>
+                </div>
+                <span class="arrow">&rarr;</span>
+            </a>
+            <a href="journal-purchase/" class="page-link">
+                <div>
+                    <div class="name">Purchase Page - Journal</div>
+                    <div class="desc">Quick checkout - full season coverage</div>
+                </div>
+                <span class="arrow">&rarr;</span>
+            </a>
+            <a href="journal-receipt/" class="page-link">
+                <div>
+                    <div class="name">Receipt - Journal</div>
+                    <div class="desc">Access instructions + coaching upsell</div>
+                </div>
+                <span class="arrow">&rarr;</span>
+            </a>
+        </div>
+
+        <div class="footer">
+            Prepared by Carlton AI Services &middot; Draft for review only
+        </div>
+    </div>
+</body>
+</html>

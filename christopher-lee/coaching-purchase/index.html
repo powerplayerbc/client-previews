@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Clarity Session | Prefrontal Plays</title>
+    <meta name="description" content="Secure your 60-minute Clarity Session with Chris Lee. Film breakdown, recruiting assessment, and a custom action plan.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas Neue:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        foundation: '#0A0A0A',
+                        surface: '#0F1629',
+                        'surface-elevated': '#162040',
+                        accent: 'var(--brand-primary)',
+                        'accent-glow': 'var(--brand-primary-glow)',
+                        warm: 'var(--brand-warm)',
+                        'warm-glow': 'var(--brand-warm-glow)',
+                        'text-primary': '#F8FAFC',
+                        'text-secondary': '#94A3B8',
+                    },
+                    fontFamily: {
+                        heading: ['Bebas Neue', 'Impact', 'sans-serif'],
+                        body: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --brand-primary: #1E3A8A;
+            --brand-primary-glow: #2563EB;
+            --brand-warm: #F59E0B;
+            --brand-warm-glow: #FBBF24;
+        }
+
+        html.lenis, html.lenis body {
+            height: auto;
+        }
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: #0A0A0A;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+
+        /* -- Court-line SVG pattern overlay -- */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='0.5'%3E%3Crect x='10' y='10' width='180' height='180'/%3E%3Cline x1='100' y1='10' x2='100' y2='190'/%3E%3Ccircle cx='100' cy='100' r='30'/%3E%3Cline x1='10' y1='100' x2='190' y2='100'/%3E%3Crect x='60' y='10' width='80' height='40'/%3E%3Crect x='60' y='150' width='80' height='40'/%3E%3C/g%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 200px 200px;
+        }
+
+        /* Refined typography scale */
+        .heading-hero { font-size: clamp(3rem, 5vw + 1rem, 5rem); }
+        .heading-section { font-size: clamp(2rem, 3vw + 0.5rem, 3rem); }
+
+        /* -- Nav glass -- */
+        .nav-glass {
+            background: rgba(10, 10, 10, 0.92);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* -- Hero section with diagonal clip -- */
+        .section-hero {
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 20%, rgba(var(--rgb-primary), 0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 80%, rgba(var(--rgb-warm), 0.06) 0%, transparent 60%),
+                #0A0A0A;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+        }
+        @media (max-width: 767px) {
+            .section-hero { clip-path: polygon(0 0, 100% 0, 100% 96%, 0 100%); }
+        }
+
+        /* -- Package/form section -- */
+        .section-package {
+            background:
+                radial-gradient(ellipse 60% 40% at 30% 30%, rgba(var(--rgb-primary), 0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 70%, rgba(var(--rgb-warm), 0.04) 0%, transparent 60%),
+                #0A0A0A;
+            position: relative;
+        }
+
+        /* -- Section label monospace -- */
+        .section-label {
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: var(--brand-primary-glow);
+        }
+
+        /* -- Sporty headline -- */
+        .headline-massive {
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 0.95;
+            letter-spacing: -0.01em;
+        }
+
+        /* -- Price display -- */
+        .price-display {
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-weight: 700;
+            font-size: 4rem;
+            line-height: 1;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--brand-primary-glow), var(--brand-warm));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        @media (min-width: 768px) { .price-display { font-size: 5rem; } }
+
+        /* -- Deliverable card -- */
+        .deliverable-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .deliverable-item:last-child { border-bottom: none; }
+        .deliverable-check {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(var(--rgb-primary), 0.12);
+            color: var(--brand-primary-glow);
+            margin-top: 0.125rem;
+        }
+
+        /* -- Bonus card -- */
+        .bonus-card {
+            background: rgba(var(--rgb-warm), 0.06);
+            border: 1px solid rgba(var(--rgb-warm), 0.2);
+            border-radius: 0.75rem;
+            padding: 1.25rem 1.5rem;
+        }
+
+        /* -- Terms box -- */
+        .terms-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 0.75rem;
+            padding: 1.25rem 1.5rem;
+        }
+
+        /* -- Form card -- */
+        .form-card {
+            background: #0F1629;
+            border: 1px solid rgba(var(--rgb-primary), 0.15);
+            border-radius: 1rem;
+            padding: 2.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--brand-primary), var(--brand-warm), var(--brand-primary));
+        }
+
+        /* -- Form inputs -- */
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            color: #F8FAFC;
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 0.95rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--brand-primary-glow);
+            box-shadow: 0 0 0 3px rgba(var(--rgb-primary), 0.15);
+        }
+        .form-input::placeholder { color: #64748B; }
+        .form-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #94A3B8;
+            margin-bottom: 0.5rem;
+        }
+
+        /* -- CTA button sporty -- */
+        .btn-sporty {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+            padding: 1.125rem 2rem;
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-glow));
+            color: white;
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 0.625rem;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+        }
+        .btn-sporty:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 4px 24px rgba(var(--rgb-primary), 0.4), 0 8px 48px rgba(var(--rgb-primary), 0.15);
+        }
+        .btn-sporty:active { transform: translateY(0) scale(1); }
+        .btn-sporty:focus-visible { outline: 2px solid var(--brand-primary-glow); outline-offset: 2px; }
+        .btn-sporty::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        .btn-sporty:hover::after { transform: translateX(100%); }
+
+        .btn-sporty:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-sporty:disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* -- Loading spinner -- */
+        .spinner {
+            display: inline-block;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* -- Error message -- */
+        .form-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 0.5rem;
+            padding: 0.875rem 1rem;
+            color: #FCA5A5;
+            font-size: 0.875rem;
+            display: none;
+        }
+        .form-error.visible { display: flex; }
+
+        /* -- Diagonal divider -- */
+        .diagonal-divider {
+            position: relative;
+            height: 80px;
+            background: transparent;
+            overflow: hidden;
+        }
+        .diagonal-divider::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -5%;
+            width: 110%;
+            height: 100%;
+            background: #0A0A0A;
+            transform: skewY(-2deg);
+            transform-origin: top left;
+        }
+
+        /* -- GSAP initial states -- */
+        .gs-hidden { opacity: 1; }
+
+        /* -- Footer -- */
+        .footer-border {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* -- Sticky form on desktop -- */
+        @media (min-width: 1024px) {
+            .form-sticky { position: sticky; top: 6rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- === NAV === -->
+    <nav class="fixed top-0 left-0 right-0 z-50 nav-glass">
+        <div class="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <a href="https://prefrontalplays.com" class="flex items-center gap-2">
+                    <img src="" alt="Prefrontal Plays" class="h-8 md:h-9 w-auto" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+                    <span style="display:none" class="font-heading font-bold text-lg md:text-xl tracking-tight text-text-primary uppercase">Prefrontal Plays</span>
+                </a>
+                <a href="https://prefrontalplays.com" class="text-sm text-text-secondary hover:text-text-primary transition-colors duration-200 flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                    Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- === HERO === -->
+    <section class="section-hero pt-28 md:pt-40 pb-28 md:pb-40 px-5">
+        <div class="max-w-5xl mx-auto text-center">
+            <p class="gs-hidden section-label" data-anim="stagger-up" data-stagger-index="0">Your Next Step</p>
+            <h1 class="gs-hidden headline-massive heading-hero mb-5" data-anim="stagger-up" data-stagger-index="1">
+                Invest in clarity. Stop guessing.
+            </h1>
+            <p class="gs-hidden font-heading text-xl md:text-2xl text-text-primary uppercase tracking-wide mb-6" data-anim="stagger-up" data-stagger-index="2" style="line-height:1.2;">
+                Built from the game. Backed by psychology.
+            </p>
+            <p class="gs-hidden text-base md:text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto" data-anim="stagger-up" data-stagger-index="3">
+                You're about to take a real step forward. No empty promisesâ€”just the tools, frameworks, and clarity you need to understand what's actually happening in your game.
+            </p>
+        </div>
+        <!-- Hero image overlay -->
+        <div class="absolute inset-0 z-[-1] opacity-30" style="pointer-events:none;">
+            <img src="https://bradfordcarlton.com/client-assets/prefrontal-plays/hero-purchase.jpg" alt="" class="w-full h-full object-cover" onerror="this.parentElement.style.display='none'">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-foundation/60 to-foundation"></div>
+        </div>
+    </section>
+
+    <!-- === PACKAGE + FORM (Two-Column) === -->
+    <section class="section-package py-16 md:py-24 px-5">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14">
+
+                <!-- LEFT COLUMN: Package Details (3/5) -->
+                <div class="lg:col-span-3" data-anim="slide-left">
+
+                    <!-- Price Card -->
+                    <div class="mb-10 p-6 md:p-8 rounded-xl" style="background: rgba(var(--rgb-primary), 0.04); border: 1px solid rgba(var(--rgb-primary), 0.12);">
+                        <div class="price-display mb-2">$447</div>
+                        <p class="text-text-secondary text-lg">60-Minute Clarity Session â€” One-Time Investment</p>
+                    </div>
+
+                    <!-- Deliverables -->
+                    <div class="mb-10">
+                        <h3 class="font-heading text-xl md:text-2xl uppercase tracking-wide mb-6" style="color: var(--brand-primary-glow);">What's Included</h3>
+
+                        <div class="deliverable-item">
+                            <div class="deliverable-check">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-text-primary text-base mb-1">One-on-One Film Breakdown</h4>
+                                <p class="text-text-secondary text-sm leading-relaxed">We review your game film together and identify real decision patternsâ€”not what you think is happening.</p>
+                            </div>
+                        </div>
+
+                        <div class="deliverable-item">
+                            <div class="deliverable-check">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-text-primary text-base mb-1">Personalized Recruiting Assessment</h4>
+                                <p class="text-text-secondary text-sm leading-relaxed">Understand where you stand from a coach's perspectiveâ€”what's working, what's not, and what to do about it.</p>
+                            </div>
+                        </div>
+
+                        <div class="deliverable-item">
+                            <div class="deliverable-check">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-text-primary text-base mb-1">Basketball IQ Evaluation</h4>
+                                <p class="text-text-secondary text-sm leading-relaxed">Assess your decision-making speed, spacing awareness, and ability to read advantage in real time.</p>
+                            </div>
+                        </div>
+
+                        <div class="deliverable-item">
+                            <div class="deliverable-check">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-text-primary text-base mb-1">Custom Action Plan</h4>
+                                <p class="text-text-secondary text-sm leading-relaxed">Walk away with specific, actionable next steps tailored to your situationâ€”not generic advice.</p>
+                            </div>
+                        </div>
+
+                        <div class="deliverable-item">
+                            <div class="deliverable-check">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-text-primary text-base mb-1">Email Follow-Up with Resources</h4>
+                                <p class="text-text-secondary text-sm leading-relaxed">Post-session materials including your personalized breakdown notes and recommended focus areas.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bonus -->
+                    <div class="bonus-card mb-8">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center" style="background: rgba(var(--rgb-warm), 0.15);">
+                                <svg class="w-4 h-4" style="color: var(--brand-warm);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-heading text-base uppercase tracking-wide mb-1" style="color: var(--brand-warm);">Bonus: Player's Journal Starter Guide</h4>
+                                <p class="text-text-secondary text-sm leading-relaxed">A structured post-game reflection system to continue building self-awareness between sessions.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terms -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="terms-box">
+                            <h4 class="font-semibold text-text-primary text-sm mb-1.5">Format</h4>
+                            <p class="text-text-secondary text-xs leading-relaxed">Video call â€” 60 minutes, 1:1 with Chris Lee</p>
+                        </div>
+                        <div class="terms-box">
+                            <h4 class="font-semibold text-text-primary text-sm mb-1.5">Scheduling</h4>
+                            <p class="text-text-secondary text-xs leading-relaxed">Book within 48 hours of purchase. Flexible scheduling.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT COLUMN: Checkout Form (2/5) -->
+                <div class="lg:col-span-2" data-anim="slide-right">
+                    <div class="form-card form-sticky">
+                        <h2 class="font-heading text-2xl md:text-3xl uppercase tracking-wide mb-2 text-text-primary">Secure Your Session</h2>
+                        <p class="text-text-secondary text-sm mb-8 leading-relaxed">Complete your details below to book your Clarity Session.</p>
+
+                        <form id="checkout-form" novalidate>
+                            <div class="space-y-5">
+                                <div>
+                                    <label for="firstName" class="form-label">First Name <span style="color: var(--brand-warm);">*</span></label>
+                                    <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Your first name" required autocomplete="given-name">
+                                </div>
+                                <div>
+                                    <label for="lastName" class="form-label">Last Name <span style="color: var(--brand-warm);">*</span></label>
+                                    <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Your last name" required autocomplete="family-name">
+                                </div>
+                                <div>
+                                    <label for="email" class="form-label">Email <span style="color: var(--brand-warm);">*</span></label>
+                                    <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com" required autocomplete="email">
+                                </div>
+                                <div>
+                                    <label for="phone" class="form-label">Phone <span class="text-text-secondary font-normal normal-case tracking-normal">(optional)</span></label>
+                                    <input type="tel" id="phone" name="phone" class="form-input" placeholder="(555) 123-4567" autocomplete="tel">
+                                </div>
+                            </div>
+
+                            <!-- Error message -->
+                            <div id="form-error" class="form-error mt-5" role="alert">
+                                <svg class="w-4 h-4 flex-shrink-0 mt-0.5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.072 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+                                <span id="form-error-text"></span>
+                            </div>
+
+                            <!-- Submit button -->
+                            <button type="submit" id="submit-btn" class="btn-sporty mt-6">
+                                <span id="btn-text">Book My Clarity Session</span>
+                                <span id="btn-spinner" class="spinner" style="display:none;"></span>
+                                <svg id="btn-arrow" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                            </button>
+
+                            <p class="text-xs text-text-secondary text-center mt-4">
+                                <svg class="w-3.5 h-3.5 inline-block -mt-0.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                                Secure checkout via Stripe. Your data is encrypted.
+                            </p>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- === FOOTER === -->
+    <footer class="footer-border py-10 px-5">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-text-secondary">
+            <span>&copy; 2026 Prefrontal Plays. All rights reserved.</span>
+            <a href="mailto:Info@prefrontalplays.com" class="hover:text-text-primary transition-colors duration-200">Info@prefrontalplays.com</a>
+        </div>
+    </footer>
+
+    <!-- === SCRIPTS === -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+    <script>
+    (function() {
+        /* ========================
+           RGB EXTRACTION
+           ======================== */
+        function hexToRgb(hex) {
+            hex = hex.replace('#', '');
+            if (hex.length === 3) hex = hex.split('').map(function(c){ return c+c; }).join('');
+            var r = parseInt(hex.substring(0,2), 16);
+            var g = parseInt(hex.substring(2,4), 16);
+            var b = parseInt(hex.substring(4,6), 16);
+            return r + ', ' + g + ', ' + b;
+        }
+        var root = document.documentElement;
+        var styles = getComputedStyle(root);
+        var primary = styles.getPropertyValue('--brand-primary').trim();
+        var warm = styles.getPropertyValue('--brand-warm').trim();
+        if (primary) root.style.setProperty('--rgb-primary', hexToRgb(primary));
+        if (warm) root.style.setProperty('--rgb-warm', hexToRgb(warm));
+
+        /* ========================
+           LENIS SMOOTH SCROLL
+           ======================== */
+        var lenis = new Lenis({
+            duration: 1.2,
+            easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+            orientation: 'vertical',
+            smoothWheel: true,
+        });
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        /* ========================
+           GSAP + SCROLLTRIGGER
+           ======================== */
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Update ScrollTrigger on Lenis scroll
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add(function(time) { lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0);
+
+        /* --- Hero stagger-up --- */
+        var heroItems = document.querySelectorAll('[data-anim="stagger-up"]');
+        var sorted = Array.prototype.slice.call(heroItems).sort(function(a, b) {
+            return (parseInt(a.getAttribute('data-stagger-index')) || 0) - (parseInt(b.getAttribute('data-stagger-index')) || 0);
+        });
+        sorted.forEach(function(el, i) {
+            gsap.fromTo(el,
+                { opacity: 0, y: 40, visibility: 'hidden' },
+                {
+                    opacity: 1, y: 0, visibility: 'visible',
+                    duration: 0.8,
+                    delay: 0.2 + (i * 0.15),
+                    ease: 'power3.out'
+                }
+            );
+        });
+
+        /* --- Slide-left (package column) --- */
+        var slideLeftEls = document.querySelectorAll('[data-anim="slide-left"]');
+        slideLeftEls.forEach(function(el) {
+            gsap.fromTo(el,
+                { opacity: 0, x: -60, visibility: 'hidden' },
+                {
+                    opacity: 1, x: 0, visibility: 'visible',
+                    duration: 1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    }
+                }
+            );
+        });
+
+        /* --- Slide-right (form column) --- */
+        var slideRightEls = document.querySelectorAll('[data-anim="slide-right"]');
+        slideRightEls.forEach(function(el) {
+            gsap.fromTo(el,
+                { opacity: 0, x: 60, visibility: 'hidden' },
+                {
+                    opacity: 1, x: 0, visibility: 'visible',
+                    duration: 1,
+                    delay: 0.2,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    }
+                }
+            );
+        });
+
+        /* ========================
+           FORM SUBMISSION
+           ======================== */
+        var form = document.getElementById('checkout-form');
+        var submitBtn = document.getElementById('submit-btn');
+        var btnText = document.getElementById('btn-text');
+        var btnSpinner = document.getElementById('btn-spinner');
+        var btnArrow = document.getElementById('btn-arrow');
+        var formError = document.getElementById('form-error');
+        var formErrorText = document.getElementById('form-error-text');
+
+        function showError(msg) {
+            formErrorText.textContent = msg;
+            formError.classList.add('visible');
+        }
+        function hideError() {
+            formError.classList.remove('visible');
+        }
+        function setLoading(loading) {
+            if (loading) {
+                submitBtn.disabled = true;
+                btnText.textContent = 'Processing...';
+                btnSpinner.style.display = 'inline-block';
+                btnArrow.style.display = 'none';
+            } else {
+                submitBtn.disabled = false;
+                btnText.textContent = 'Book My Clarity Session';
+                btnSpinner.style.display = 'none';
+                btnArrow.style.display = 'inline-block';
+            }
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            hideError();
+
+            var firstName = document.getElementById('firstName').value.trim();
+            var lastName = document.getElementById('lastName').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var phone = document.getElementById('phone').value.trim();
+
+            // Validation
+            if (!firstName) { showError('Please enter your first name.'); return; }
+            if (!lastName) { showError('Please enter your last name.'); return; }
+            if (!email) { showError('Please enter your email address.'); return; }
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) { showError('Please enter a valid email address.'); return; }
+
+            setLoading(true);
+
+            var payload = {
+                operation: 'create_checkout_session',
+                product_name: 'Book Your Clarity Session | Prefrontal Plays',
+                customer_email: email,
+                customer_name: firstName + ' ' + lastName,
+                first_name: firstName,
+                last_name: lastName,
+                customer_phone: phone,
+                offer_type: 'general',
+                success_url: '#',
+                cancel_url: window.location.href
+            };
+
+            fetch('https://n8n.carltonaiservices.com/webhook/stripe-manage', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(function(response) {
+                if (!response.ok) throw new Error('Server error (' + response.status + ')');
+                return response.json();
+            })
+            .then(function(data) {
+                if (data.checkout_url || data.url) {
+                    window.location.href = data.checkout_url || data.url;
+                } else {
+                    throw new Error('No checkout URL returned. Please try again.');
+                }
+            })
+            .catch(function(err) {
+                setLoading(false);
+                showError(err.message || 'Something went wrong. Please try again.');
+            });
+        });
+    })();
+    </script>
+
+</body>
+</html>
